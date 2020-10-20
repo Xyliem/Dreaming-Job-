@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+        <!--Fichiers-->
+        <link rel="stylesheet" href="stylesheets/style.css">
+        <script src="javascripts/function.js"></script>
+
+        <!--Font-->
+        <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet'>
+    </head>
+
+
+
+
+    <body class="" style="background-color: rgb(239, 241, 241)">
+      <div class="main-screen <% if(isOpen!=undefined){ %> blur <% } %>">
+
+
+        <!------Header------->
+        <div id="header" class="header">
+          <!--Icon Menu-->
+          <div class="dropdown">
+            <button onclick="openmenu()" class="icon icon-img"></button>
+            <div id="myDropdown" class="dropdown-content">
+              <% if(admin=='0'){ %>
+                <a href="/account" id="account">Mon Compte</a>
+                <a href="/logout" id="disconnection">Déconnexion</a>
+              <% }else if(admin=='1'){ %>
+                <a href="/peoples" id="account">Manage Users</a>
+                <a href="/logout" id="disconnection">Déconnexion</a>
+              <% }else{ %>
+                <a href="/connection" id="connection">Connection</a>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="header-in-posi2 title">Dreaming Job</div>
+
+          <% if(admin=='1'){ %>
+          <button onclick="apply(this.id, 2); create_()" class="create create-img" for="admin"></button>
+          <% } %>
+
+        </div>
+
+
+        <!------List--------->
+        <div class="container-xl marg-top">
+          <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-3">
+            <!--Job Example-->
+
+            <% for(var i = 0; i< data.length; i++) { %>
+
+              <div class=" col">
+                <div class="row h">
+                  <div class="container-fluid marg job-h anim-job-big <% if(isOpen!=undefined && data[i].id==isOpen){ %> job-h-big <% } %>">
+                    <div class="row h anim2 w  <% if(isOpen!=undefined && data[i].id==isOpen){ %> w-big <% } %>">
+                      <div class="col-4 col-lg-12 h-header">
+                        <p class="job-compteur" style="display: none;"><%= data[i].compteur %></p>
+                        <p class="job-id" style="display: none;"><%= data[i].id %></p>
+                        <p class="job-title"><img class="job_pp <% if(isOpen!=undefined && data[i].id==isOpen){ %> job_pp_open <% } %>" src="<%= data[i].logo %>"><%= data[i].title %></p>
+                        <p class="job-ent"><%= data[i].nom %></p>
+                        <p class="job-place"><%= data[i].ville %></p>
+                        <p class="job-contrat to-hide <% if(isOpen!=undefined && data[i].id==isOpen){ %> un-hide <% } %>"><%= data[i].type %></p>
+                      </div>
+                      <div class="col-8 col-lg-12 h-body descri">
+                        <button class="btn-lm" id="<%= i %>" onClick="lm(this.id)"><h1 class="btn-txt <% if(isOpen!=undefined && data[i].id==isOpen){ %> btn-txt2 <% } %>"></h1></button>
+                        <% var t=false; %>
+                        <% for(var j = 0; j< data3.length; j++) {  %>
+                            <%  if(data[i].id == data3[j].advertisement_id){ %>
+                                <%  t=true;%>
+                             <% } %>
+                        <%  } %>
+                        <% if((admin=='0' && t==false) || !data2.length){ %>
+                        <button class="btn-apply to-hide  <% if(isOpen!=undefined && data[i].id==isOpen){ %> un-hide <% } %>" id="<%= data[i].id %>" onClick="apply(this.id, 0)"><p class="btn-txt-apply">Apply</p></button>
+                        <% }else if(admin=='1'){ %>
+                        <button class="admin-btn to-hide" id="<%= i %>" for="admin" onclick="apply(this.id, 1); admin_(this.id);"><p>Modifier</p></button>
+                        <% } %>
+                        <p class="job-descri"><%= data[i].description %></p>
+                        <p class="job-profile to-hide  <% if(isOpen!=undefined && data[i].id==isOpen){ %> un-hide <% } %>"><%= data[i].profile %></p>
+                        <p class="job-infos to-hide  <% if(isOpen!=undefined && data[i].id==isOpen){ %> un-hide <% } %>"><%= data[i].info_sup %></p>
+                        <p class="job-fournir to-hide  <% if(isOpen!=undefined && data[i].id==isOpen){ %> un-hide <% } %>"><%= data[i].a_fournir %></p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--End Example-->
+
+             <% } %>
+
+              <!--Fin List-->
+                 
+            </div>
+          </div>
+
+        </div>
+        <!----------End main Screen--------------->
+
+        <footer class="hide-form <% if(isOpen!=undefined){ %> un-hide-form <% } %>">
+          <div class="apply-bg <% if(isOpen!=undefined){ %> apply-bg-on <% } %>">
+              <div class="apply-header">
+                <% if(admin!='1'){ %>
+                <div class="apply-block">
+                  <!--Connection-->
+                  <div class="apply-connec <% if(admin=='0'){ %> apply-connec-off <% } %>">
+                    <h3 class="apply-title">Connection</h3>
+                    <p class="apply-title-txt">Veuillez vous connectez pour pouvoir poursuivre</p> 
+                  </div>
+                  <!--Apply-->
+                  <div class="apply-insc <% if(admin=='0'){ %> apply-insc-on <% } %>">
+                    <h3 class="apply-title">Inscription</h3>
+                    <p class="apply-title-txt">Veuillez remplir ce formulaire pour postuler à ce post</p> 
+                  </div>
+                  
+                </div>
+                <% } %>
+
+                <% if(admin=='1'){ %>
+                  <div class="apply-block" for="admin">
+                    <!--Admin-->
+                    <h3 style="display: none;" id="admin-id" name="admin-id" contentEditable="true">Job id</h3>
+                    <h3 class="apply-title" id="admin-title" name="admin-title" contentEditable="true">New Job Title</h3>
+                    <p class="apply-title-txt" id="admin-ent" name="admin-ent" contentEditable="true">New Enterprise</p> 
+                  </div>
+                <% } %>
+                  <button class="btn-apply-c" id="0" onclick="apply(this.id, 1)"><p class="btn-apply-txt-c">X</p></button>
+                  <% if(admin=='1'){ %>
+                  <button class="admin-delete" id="0" onclick="delete_()"><p class="btn-apply-txt-c">Delete</p></button>
+                  <button class="admin-save" id="0" onclick="save()"><p class="btn-apply-txt-c">Sauvegarder</p></button>
+                  <% } %>
+                </div>
+
+                
+                <div class="apply-body">
+                  <% if(admin!='1'){ %>
+                  <button class="btn-apply-c2" id="0" onClick="insc()"><p class="btn-apply-txt-c">Switch</p></button>
+                  <div class="apply-block">
+                    <!--Connection-->
+                    <div class="apply-connec <% if(admin=='0'){ %> apply-connec-off <% } %>">
+                      <div class="title2">Dreaming Job</div>
+                      <p class="title2-txt">Bienvenue sur Dreaming Job! Si vous voulez pouvoir postuler aux annonces, veuillez vous connecter ou créer votre compte</p>
+                      <form class="apply-connec-form" action="/login" method="POST">
+                        <input type="hidden" name="idConnection" id="idConnection" value="">
+                        <label class="form-name" for="email_Connection">Email:</label><br>
+                        <input class="form-name-in"type="email" id="email_Connection" name="email_Connection" placeholder="Email">
+                        <br>
+                        <label class="form-name" for="password_Connection">Password:</label><br>
+                        <input class="form-name-in"type="password" id="password_Connection" name="password_Connection" placeholder="Password">
+                        <br>
+                        
+                        <button class="form-submit" name="submit" value="connection">Connection</button>
+                        <button class="form-submit" name="submit" value="inscription">S'inscrire</button>  
+                      </form>
+                    </div>
+                    <!--Apply-->
+                    <div class="apply-insc <% if(admin=='0'){ %> apply-insc-on <% } %>">
+                      <form action="/apply" method="POST">
+                        <input type="hidden" name="id" id="idApply" value="<% if(isOpen!=undefined){ %> <%= isOpen %> <% } %>">
+                        <label class="form-name" for="lname">Last name:</label><br>
+  
+                        <% if (data2.length){ %>
+  
+                          <input class="form-name-in"type="text" id="lname" name="lname" placeholder="Nom" value="<%= name[1] %>">
+                            <br>
+                          <label class="form-name" for="fname">First name:</label><br>
+                          <input class="form-name-in"type="text" id="fname" name="fname" placeholder="Prénom" value="<%= name[0] %>">
+                            <br>
+                          <label class="form-name" for="email">Email:</label><br>
+                          <input class="form-name-in"type="email" id="email" name="email" placeholder="email" value="<%= data2[0].email %>">
+                            <br>
+                          <label class="form-name" for="tel">Numéro de Téléphone</label><br>
+                          <select class="form-pays" name="pays">
+                            <option value="" disabled <% if(data2[0].pays_Tel==undefined){ %> selected <% } %>>--</option>
+                            <option value="1" <% if(data2[0].pays_Tel=="FR"){ %> selected <% } %> >FR</option>
+                            <option value="2" <% if(data2[0].pays_Tel=="BE"){ %> selected <% } %> >BE</option>
+                            <option value="3" <% if(data2[0].pays_Tel=="CH"){ %> selected <% } %> >CH</option>
+                          </select>
+                          <input class="form-name-in2"type="tel" id="tel" name="tel" placeholder="Numéro de Téléphone" value="<%= data2[0].num_Tel %>">
+  
+                        <% }else{ %>
+  
+                          <input class="form-name-in"type="text" id="lname" name="lname" placeholder="Nom">
+                            <br>
+                          <label class="form-name" for="fname">First name:</label><br>
+                          <input class="form-name-in"type="text" id="fname" name="fname" placeholder="Prénom">
+                            <br>
+                          <label class="form-name" for="email">Email:</label><br>
+                          <input class="form-name-in"type="email" id="email" name="email" placeholder="email">
+                            <br>
+                          <label class="form-name" for="tel">Numéro de Téléphone</label><br>
+                          <select class="form-pays" name="pays">
+                            <option value="" disabled selected>--</option>
+                            <option value="1">FR</option>
+                            <option value="2">BE</option>
+                            <option value="3">CH</option>
+                          </select>
+                          <input class="form-name-in2"type="tel" id="tel" name="tel" placeholder="Numéro de Téléphone">
+  
+                        <% } %>
+  
+                          <br>
+                        <label class="form-name" for="mess">Message:</label>
+                        <textarea class="form-name-in3" name="message"></textarea>
+                          <br>
+                        <button class="form-submit">Apply</button>
+                      </form>
+                    </div>
+
+                  </div>
+                  
+                </div>
+                <% } %>
+
+                <% if(admin=='1'){ %>
+                  <div class="apply-block" for="admin">
+                    <!--Admin-->
+                    <p class="job-contrat2" id="admin-contrat" name="admin-contrat" contentEditable="true"></p>
+                    <p class="job-descri" id="admin-descri" name="admin-descri" contentEditable="true"></p>
+                    <p class="job-profile" id="admin-profile" name="admin-profile" contentEditable="true"></p>
+                    <p class="job-infos" id="admin-infos" name="admin-infos" contentEditable="true"></p>
+                    <p class="job-fournir" id="admin-CV" name="admin-CV" contentEditable="true"></p>
+                  </div>
+
+          </div>
+                  
+                <div class="apply-footer">
+                  <p class="admin-nb" for="admin">Nb de postulation: <span id="admin-compteur">0</span></p>
+                  <button onclick="create()" class="create create-img" for="admin"></button>
+                </div>
+                <% } %>
+
+              <!--
+                
+                
+              -->
+              
+      
+            </div>
+          </footer>
+
+    </body>
+
+    
+
+</html>

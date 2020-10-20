@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+        <!--Fichiers-->
+        <link rel="stylesheet" href="stylesheets/style.css">
+        <script src="javascripts/function.js"></script>
+
+        <!--Font-->
+        <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet'>
+    </head>
+
+
+
+
+    <body class="" style="background-color: rgb(239, 241, 241)">
+      <div class="main-screen" >
+
+        <% if(idPrec!=undefined){ %>
+          <script>
+            slider(3);
+          </script>
+        <% } %>
+          
+
+
+        <!------Header------->
+        <div id="header" class="header">
+          <!--Icon Menu-->
+          <div class="dropdown">
+            <button onclick="openmenu()" class="icon icon-img"></button>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="/" id="account">Jobs</a>
+              <a href="/logout" id="disconnection">Déconnexion</a>
+            </div>
+          </div>
+
+          <div class="header-in-posi2 title">Dreaming Job</div>
+        </div>
+
+
+      <div class="us-bg">
+        <div class="us-menu" onmouseover="menu_on()" onmouseout="menu_on()">
+          <button class="us-menu-icon us-menu-icon-hover us-menu-icon-infos" id="0" onclick="slider(this.id)"><p>Personnel</p></button><br>
+          <button class="us-menu-icon us-menu-icon-hover us-menu-icon-log" id="1" onclick="slider(this.id)"><p>Connexion</p></button><br>
+          <button class="us-menu-icon us-menu-icon-hover us-menu-icon-pro" id="2" onclick="slider(this.id)"><p>Professionnel</p></button><br>
+          <button class="us-menu-icon us-menu-icon-hover us-menu-icon-job" id="3" onclick="slider(this.id)"><p>Annonces</p></button><br>
+          <button class="us-menu-icon us-menu-icon-hover us-menu-icon-gear" id="4" onclick="slider(this.id)"><p>Paramètres</p></button><br>
+
+        </div>
+        
+        <div class="us-infos">
+          <div class="us-infos-">
+            <!--Menu Personnel-->
+            <div class="us-mode" mode="0">
+              <div class="us-mode-block">
+              <h1 class="us-mode-title">Informations Personnelles:</h1>
+              <form id="formInfoUser">
+                <label class="form-name" for="fname">Nom:</label><br>
+                <input class="form-name-in" id="lname" name="lname" placeholder="nom" value="<%= data[0].lname %>" readonly>
+                <br>
+                <label class="form-name" for="fname">Prénom:</label><br>
+                <input class="form-name-in" id="fname" name="fname" placeholder="prénom" value="<%= data[0].fname %>" readonly>
+                <br>
+                <label class="form-name" for="age">Age:</label><br>
+                <input type="text" class="form-name-in" id="age" name="age" placeholder="age" value="<%= data[0].age %>" readonly>
+                <br>
+                <label class="form-name" for="ville">Ville:</label><br>
+                <input class="form-name-in" placeholder="ville" id="ville" name="ville" value="<%= data[0].ville %>" readonly>
+                <input type="number" class="form-name-in" id="codePostal" name="codePostal" placeholder="00000" value="<%= data[0].codePostal %>" readonly>
+                <br>
+                <label class="form-name" for="tel">Numéro de Téléphone</label><br>
+                <select class="form-pays" id="pays_Tel" name="pays_Tel" disabled>
+                  <option value="" disabled selected>--</option>
+                  <option value="FR" <% if(data[0].pays_Tel=="FR"){ %> selected <% } %>>FR</option>
+                  <option value="BE" <% if(data[0].pays_Tel=="BE"){ %> selected <% } %>>BE</option>
+                  <option value="CH" <% if(data[0].pays_Tel=="CH"){ %> selected <% } %>>CH</option>
+                </select>
+                <input class="form-name-in2"type="tel" id="tel" name="tel" placeholder="Numéro de Téléphone" value="<%= data[0].num_Tel %>" readonly>
+                <br>
+              </form>
+              <button class="c-btn" id="0" onclick="account_modify(this.id)">Modifier</button>
+              <button class="c-btn to-hide" id="0" onclick="account_cancel_notif(this.id)">Annuler</button>
+              
+              </div>
+            </div>
+            <!--Menu Compte-->
+            <div class="us-mode" mode="1" style="transform: translateX(100%)">
+              <div class="us-mode-block">
+                <h1 class="us-mode-title">Paramètres de connexion:</h1>
+                <form>
+                  <label class="form-name" for="email">Email:</label><br>
+                  <input class="form-name-in" type="email" name="email" id="email" placeholder="email" readonly>
+                  <br>
+                  <label class="form-name" for="fname">Nouveau Mot de Passe:</label><br>
+                  <input class="form-name-in" type="password" name="pwd" id="pwd" placeholder="mot de passe" readonly>
+                  <br>
+                  <div class="to-hide">
+                    <label class="form-name" for="fname">Confirmer le Mot de Passe:</label><br>
+                    <input class="form-name-in" name="pwdComf" placeholder="confirmer le mot de passe" readonly>
+                    <br>
+                  </div>
+                </form>
+                <button class="c-btn" id="1" onclick="account_modify(this.id)">Modifier</button>
+                <button class="c-btn to-hide" id="1" onclick="account_cancel_notif(this.id)">Annuler</button>
+              </div>
+              
+            </div>
+            <!--Menu Professionel-->
+            <div class="us-mode" mode="2" style="transform: translateX(200%)">
+              <div class="us-mode-block">
+                <h1 class="us-mode-title">Informations Proffesionnel:</h1>
+                <form action="/account/saveInfoPro" method="POST" enctype="multipart/form-data">
+                  <label class="form-name">CV:</label><br>
+                  <input class="form-name-in" type="file" id="cv" name="cv" placeholder="CV" disabled>
+                  <br>
+                  <label class="form-name" for="fname">Portfolio:</label><br>
+                  <input class="form-name-in" placeholder="Lien Web" id="portfolio" readonly name="portfolio" value="<%= data[0].portfolio %>">
+                  <br>
+                  <label class="form-name" for="tel">Domaine de Travail:</label><br>
+                  <select class="us-mode-select" id="categ" name="categ" disabled>
+                    <option value="" disabled selected>--</option>
+                    <option value="Developpement" <% if(data[0].categorie_Emploi=="Developpement"){ %> selected <% } %>>Developpement</option>
+                    <option value="Graphisme" <% if(data[0].categorie_Emploi=="Graphisme"){ %> selected <% } %>>Graphisme</option>
+                    <option value="Management" <% if(data[0].categorie_Emploi=="Management"){ %> selected <% } %>>Management</option>
+                    <option value="BTP" <% if(data[0].categorie_Emploi=="BTP"){ %> selected <% } %>>BTP</option>
+                  </select>
+                </form>
+                <button class="c-btn" id="2" onclick="account_modify(this.id, this)">Modifier</button>
+                <button class="c-btn to-hide" id="2" onclick="account_cancel_notif(this.id)">Annuler</button>
+              </div>
+            </div>
+
+            <!--Menu Annonces-->
+            <div class="us-mode" mode="3" style="transform: translateX(300%)">
+              <div class="us-mode-block">
+                <h1 class="us-mode-title">Annonces:</h1>
+                <button class="us-tab us-tab-off us-tab-on" id="favo" onclick="tab_job(this.id)">Favoris</button>
+                <button class="us-tab us-tab-off" id="post" onclick="tab_job(this.id)">Postulé</button> 
+                <div class="us-job-list-block">
+                  <!--Favoris-->
+                  <div class="us-job-list-container list1">
+
+
+                    <!--Job-->
+                    <% for(var i = 0; i< data2.length; i++) { %>
+                    <div class="us-job" id="<%= i %>">
+                      <button class="us-job-check check-fav" id="<%= i %>" onclick="job_fav(this.id)" name="btn-fav" ></button>
+                      <div class="us-job-infos-bg">
+                        <div class="us-job-infos-head">
+                          <h1 onclick="account_job_notif(this.id)" id="<%= i %>"><%= data2[i].title %></h1>
+                        </div>
+                        <div style="display: none;">
+                        <p id="fav-idFav<%= i %>"><%= data2[i].id_fav %></p>
+                        <p id="fav-title<%= i %>"><%= data2[i].title %></p>
+                        <p id="fav-nom<%= i %>"><%= data2[i].nom %></p>
+                        <p id="fav-description<%= i %>"><%= data2[i].description %></p>
+                        <p id="fav-profile<%= i %>"><%= data2[i].profile %></p>
+                        <p id="fav-logo<%= i %>"><%= data2[i].logo %></p>
+                        <p id="fav-type<%= i %>">Contrat : <%= data2[i].type %></p>
+                        <p id="fav-date<%= i %>">Publié le <%= data2[i].date2 %></p>
+                        <p id="fav-info<%= i %>"><%= data2[i].info_sup %></p>
+                        <p id="fav-a_fournir<%= i %>"><%= data2[i].a_fournir %></p>
+                        <p id="fav-ville<%= i %>"><%= data2[i].ville %> <%= data2[i].codePostal %></p>
+                        </div>
+                        <div class="us-job-infos-body">
+                          <p><%= data2[i].nom %></p>
+                          <form action="/postAccountToApply" method="POST">
+                            <input type="hidden" name="idEntreprise" value="<%= data2[i].id%>">
+                            <button class="us-job-check2 check-pos2 <% if(data2[i].a_postuler!='1'){ %> check-pos-off <% } %>" id="<%= i %>" onclick="job_pos(this.id)" name="btn-pos" <% if(data2[i].a_postuler=='1'){ %>disabled<% } %>></button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <% } %>
+                  </div>
+
+                  <!--Postulé-->
+                  <div class="us-job-list-container list2">
+                    <!--Job-->
+                    <% for(var i = 0; i< data3.length; i++) { %>
+                      <div class="us-job" id="<%= i %>">
+                        <button class="us-job-check check-fav <% if(data3[i].favori!='1'){ %> check-fav-off <% } %>" id="<%= i %>" onclick="job_fav2(this.id, this.fav)" fav="<%= data3[i].favori %>" name="btn-fav"></button>
+                        <div class="us-job-infos-bg">
+                          <div class="us-job-infos-head">
+                            <h1 onclick="account_job_notif2(this.id)" id="<%= i %>"><%= data3[i].title %></h1>
+                          </div>
+                          <div style="display: none;">
+                          <p id="pos-advertisement_id<%= i %>"><%= data3[i].advertisement_id %></p>
+                          <p id="pos-people_id<%= i %>"><%= data3[i].people_id %></p>
+                          <p id="pos-title<%= i %>"><%= data3[i].title %></p>
+                          <p id="pos-nom<%= i %>"><%= data3[i].nom %></p>
+                          <p id="pos-description<%= i %>"><%= data3[i].description %></p>
+                          <p id="pos-profile<%= i %>"><%= data3[i].profile %></p>
+                          <p id="pos-logo<%= i %>"><%= data3[i].logo %></p>
+                          <p id="pos-type<%= i %>">Contrat : <%= data3[i].type %></p>
+                          <p id="pos-date<%= i %>">Publié le <%= data3[i].date2 %></p>
+                          <p id="pos-info<%= i %>"><%= data3[i].info_sup %></p>
+                          <p id="pos-a_fournir<%= i %>"><%= data3[i].a_fournir %></p>
+                          <p id="pos-ville<%= i %>"><%= data3[i].ville %> <%= data3[i].codePostal %></p>
+                          </div>
+                          <div class="us-job-infos-body">
+                            <p><%= data3[i].nom %></p>
+                            <form>
+                              <button class="us-job-check2 check-pos2 " id="<%= i %>" onclick="job_pos(this.id)" name="btn-pos" disabled></button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Menu Paramètres-->
+            <div class="us-mode" mode="4" style="transform: translateX(400%)">
+              <div class="us-mode-block">
+                <h1 class="us-mode-title">Paramètres Généraux:</h1>
+                <label class="form-name">Supprimer le compte:</label><br>
+                <button class="c-btn" id="2" onclick="account_delete_notif()">Supprimer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--End Page-->
+
+      <div class="notif1">
+        <div class="notif1-header">
+        </div>
+        <div class="notif1-body">
+          <h1 class="us-mode-title notif1-title">Etes-vous sûr de vouloir annuler?</h1>
+          <button class="notif1-btn-y" onclick="account_cancel_notif()">OUI</button>
+          <button class="notif1-btn-n" onclick="account_cancel_notif()">NON</button>
+        </div>
+      </div>
+      <div class="notif1 n2">
+        <div class="notif1-header">
+        </div>
+        <div class="notif1-body">
+          <h1 class="us-mode-title notif1-title">Etes-vous sûr de vouloir supprimer votre compte?</h1>
+          <form action="/account/deleteCompte" method="POST" style="display: contents;">
+            <button class="notif1-btn-y" onclick="account_delete_notif()">OUI</button>
+          </form>
+          <button class="notif1-btn-n" onclick="account_delete_notif()">NON</button>
+        </div>
+      </div>
+      <div class="notif2 n3">
+        <div class="notif2-header">
+          <h1 class="notif2-title">Job Title</h1>
+          <button class="notif2-close" onclick="account_job_notif(-1)"></button>
+        </div>
+        <div class="notif2-body">
+          <img class="us-job-logo" src="images/ubi.png">
+          <div class="us-job-txt-ent">
+            <p class="us-job-txt us-job-ent">Entreprise 0</p>
+            <p class="us-job-txt us-job-place">Place 0</p>
+            <p class="us-job-txt us-job-contrat">Contrat 0</p>
+            <p class="us-job-txt us-job-date">Date 0</p>
+          </div>
+          <p class="us-job-txt us-job-descri">Lorem Ipsum is simply dummy text of the printing and 
+            typesetting industry. Lorem Ipsum has been the industry's 
+            standard dummy text ever since the 1500s, when an unknown 
+            printer took a galley of type and scrambled it to make a 
+            type specimen book. It has survived not only five centuries, 
+            but also the leap into electronic typesetting, remaining 
+            essentially unchanged. It was popularised in the 1960s 
+            with the release of Letraset sheets containing Lorem Ipsum 
+            passages, and more recently with desktop publishing software 
+            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          <p class="us-job-txt us-job-profile">Lorem Ipsum is simply dummy text of the printing and 
+            typesetting industry. Lorem Ipsum has been the industry's 
+            standard dummy text ever since the 1500s, when an unknown 
+            printer took a galley of type and scrambled it to make a 
+            type specimen book. It has survived not only five centuries, 
+            but also the leap into electronic typesetting, remaining 
+            essentially unchanged. It was popularised in the 1960s 
+            with the release of Letraset sheets containing Lorem Ipsum 
+            passages, and more recently with desktop publishing software 
+            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          <p class="us-job-txt us-job-infos">Lorem Ipsum is simply dummy text of the printing and 
+            typesetting industry. Lorem Ipsum has been the industry's 
+            standard dummy text ever since the 1500s, when an unknown 
+            printer took a galley of type and scrambled it to make a 
+            type specimen book. It has survived not only five centuries, 
+            but also the leap into electronic typesetting, remaining 
+            essentially unchanged. It was popularised in the 1960s 
+            with the release of Letraset sheets containing Lorem Ipsum 
+            passages, and more recently with desktop publishing software 
+            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          <p class="us-job-txt us-job-fournir">Lorem Ipsum is simply dummy text of the printing and 
+            typesetting industry. Lorem Ipsum has been the industry's 
+            standard dummy text ever since the 1500s, when an unknown 
+            printer took a galley of type and scrambled it to make a 
+            type specimen book. It has survived not only five centuries, 
+            but also the leap into electronic typesetting, remaining 
+            essentially unchanged. It was popularised in the 1960s 
+            with the release of Letraset sheets containing Lorem Ipsum 
+            passages, and more recently with desktop publishing software 
+            like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+      </div>
+
+
+        </div>
+    </body>
+
+    
+
+</html>

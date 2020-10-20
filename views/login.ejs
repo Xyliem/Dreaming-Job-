@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="theme-light <% if(theme=='1'){ %> theme-dark <% } %>">
+    <head>
+      <title>Dreaming Job - Connexion</title>
+      <link rel="icon" href="images/icon/job-list.png" type="image/png">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0', shrink-to-fit=no">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+        <!--Fichiers-->
+        <link rel="stylesheet" href="stylesheets/style.css">
+        <script src="javascripts/connection-function.js"></script>
+
+        <!--Font-->
+        <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+        
+    </head>
+
+
+
+
+    <body class="">
+      <div id="wallpaper"></div>
+      <div class="main-screen">
+        <div class="day-night" onclick="switch_()">
+          <div class="day-night-toggle <% if(theme=='1'){ %> day-night-toggle-off <% } %>"></div>
+        </div>
+
+
+          <div class="hide-form">
+            <div class="apply-bg">
+                <div class="apply-header">
+                  <div class="apply-block">
+                    <div class="title3">Dreaming Job</div>
+                    <div class="quote">The perfect place to find your dream job!</div>
+                  </div>
+                </div>
+
+                <div class="c-apply-body">
+                  <div class="apply-block">
+                    <p class="welco">Bienvenue sur Dreaming Job! Si vous voulez pouvoir postuler aux annonces, veuillez vous connecter ou créer votre compte</p>
+                    <% if(type=='inscription'){ %> <script>mode=false;</script><% } %>
+                    <% if(theme=='1'){ %> <script>day=false;</script><% } %>
+                    <button class="tab tab1 <% if(type=='inscription'){ %> tab-off <% } %>" id="connection" onclick="btn_co()"><span>Connexion</span></button><button class="tab tab2 <% if(type=='connection'){ %> tab-off <% } %>" id="inscription" onclick="btn_in()"><span>S'inscrire</sspan></button> 
+                      <div class="little-menu">
+                        <div class="little-menu-body">
+                          <!--Connection-->
+                          <div class="apply-connec <% if(type=='inscription'){ %> apply-connec-off <% } %>">
+                            <div class="c-apply-connec">  
+                              <form class="apply-connec-form" action="/login" method="POST">
+                                <label class="form-name" for="email">Email:</label><br>
+                                <input class="form-name-in"type="email" id="email_Connection" name="email_Connection" placeholder="email" value="<% if(emailConnection!=undefined) {%> <%= emailConnection %> <%}%>">
+                                <br>
+                                <label class="form-name" for="fname">Password:</label><br>
+                                <input class="form-name-in"type="password" id="password_Connection" name="password_Connection" placeholder="password">
+                                <br>
+                                
+                                <div class="alert-mdp <% if(err!=undefined){ %> alert-mdp-on <% } %>"><div></div>
+                                <p><%= err %></p></div>
+                                
+                            <button class="c-btn">Connexion</button>
+                          </form>
+                          
+                        </div>
+                        </div>
+                        <!--Apply-->
+                        <div class="apply-insc <% if(type=='inscription'){ %> apply-insc-on <% } %>">
+                          <div class="c-apply-connec">
+                          <form action="/addPeople" method="POST">
+                            <div class="form-flname">
+                              <div class="form-flname-">
+                                <label class="form-name" for="lname">Last name:</label><br>
+                                <input class="form-name-in4"type="text" id="lname" name="lname" placeholder="Nom" value="<%= lname %>">
+                              </div><div class="form-flname-">
+                                <label class="form-name" for="fname">First name:</label><br>
+                                <input class="form-name-in4"type="text" id="fname" name="fname" placeholder="Prénom" value="<%= fname %>">
+                              </div>
+                            </div>
+                            <label class="form-name" for="email">Email:</label><br>
+                            <input class="form-name-in"type="email" id="email" name="email" placeholder="email" value="<%= email %>">
+                              <br>
+                            <label class="form-name" for="fname">Mot de Passe:</label><br>
+                            <input class="form-name-in"type="password" id="mdp" name="mdp" placeholder="mot de passe">
+                              <br>
+                            <label class="form-name" for="tel">Numéro de Téléphone</label><br>
+                            <select class="form-pays" name="pays_Tel">
+                              <option class="select" value="" disabled selected>--</option>
+                              <option class="select" value="FR">FR</option>
+                              <option class="select" value="BE">BE</option>
+                              <option class="select" value="CH">CH</option>
+                            </select>
+                            <input class="form-name-in2"type="tel" id="tel" name="num_Tel" placeholder="Numéro de Téléphone" value="<%= numTel %>">
+                            <input type="hidden" id="admin" name="admin" value="false"> 
+                            <div class="alert-mdp <% if(err2!=undefined){ %> alert-mdp-on <% } %>"><div></div>
+                            <p><%= err2 %></p></div> 
+                            <br>
+                            <button class="c-btn">Inscription</button>
+                          </form>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div class="little-menu-footer"></div>
+                    </div>
+
+                  </div>
+                  
+                </div>
+
+                <div class="c-apply-footer">
+                  <p>Rejoignez nous!</p>
+                  <div class="RS-posi">
+                    <button class="RS RS-Fb" onclick="fb()"></button>
+                    <button class="RS RS-Tw" onclick="tw()"></button>
+                    <button class="RS RS-In" onclick="insta()"></button>
+                  </div>
+                  
+                </div>
+              
+
+              <!--
+                
+                
+              -->
+              
+      
+            </div>
+          </div>
+          <!--End Screen-->
+          </div>
+
+    </body>
+
+    
+
+</html>
